@@ -1,0 +1,183 @@
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #e9f1ff;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 35px;
+        border-radius: 25px;
+        color: white;
+        background: linear-gradient(135deg, #263b6b, #377dff);
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .header h1 {
+        font-size: 36px;
+    }
+
+    .search-area form {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 35px;
+    }
+
+    .search-area input {
+        flex: 1;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+    }
+
+    .search-area button {
+        padding: 16px 24px;
+        border: none;
+        border-radius: 12px;
+        background: #2f80ff;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .weather-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    min-height: 280px;
+}
+
+    .left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+    .left h2{
+    margin:0;
+    font-size:36px;
+}
+
+.left h1{
+    margin:10px 0;
+    font-size:90px;
+}
+.left h1{
+    font-size:96px;
+    font-weight:bold;
+}
+
+.left p{
+    margin:0;
+    font-size:22px;
+}
+
+    .right {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+    }
+
+    .info-card {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 22px;
+        border-radius: 14px;
+    }
+
+    .forecast {
+        margin-top: 35px;
+    }
+</style>
+<div class="container">
+
+    <div class="header">
+        <h1>🌤 Weather</h1>
+    </div>
+
+    <div class="search-area">
+        <form method="GET">
+            <input type="text" name="city" placeholder="Write city..." value="{{ request.GET.city }}">
+            <button type="submit">Search</button>
+            <button type="button">📍</button>
+        </form>
+    </div>
+
+    <div class="weather-content">
+
+        <div class="left">
+            {% if weather %}
+                <h2>{{ weather.city }}</h2>
+                <h1>{{ weather.temperature }}°</h1>
+                <p>{{ weather.description }}</p>
+            {% else %}
+                <h2>-</h2>
+                <h1>--°</h1>
+            {% endif %}
+        </div>
+
+        <div class="right">
+
+            <div class="info-card">
+                <h3>🌡️Hissedilen</h3>
+                <p>
+                    {% if weather %}
+                        {{ weather.feels_like }}°
+                    {% else %}
+                        -
+                    {% endif %}
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h3>💧Nem</h3>
+                <p>
+                    {% if weather %}
+                        {{ weather.humidity }}%
+                    {% else %}
+                        -
+                    {% endif %}
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h3>🌬️Rüzgar</h3>
+                <p>
+                    {% if weather %}
+                        {{ weather.wind }} m/s
+                    {% else %}
+                        -
+                    {% endif %}
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h3>⏰Saat</h3>
+                <p>
+                    {% if weather %}
+                        {{ weather.time }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="forecast">
+        <h2>7 Günlük Tahmin</h2>
+    </div>
+
+</div>
+
